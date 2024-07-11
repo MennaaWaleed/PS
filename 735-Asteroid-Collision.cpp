@@ -8,22 +8,28 @@ public:
     for (int i = 0; i < n; ++i)
     {
       int x = asteroids[i];
-      if (st.empty() || x>0)
+      bool flag=1;
+      while(!st.empty() && st.top()>0 && x<0)
       {
-        st.push(x);
-        continue;
-      }
-      else
-      {
-        while(!st.empty() && st.top()>0 && st.top()<abs(x))
-          st.pop();
-        if(st.empty() || st.top()<0)
-          st.push(x);
-        else if(st.top() == abs(x))
+        if(st.top()>abs(x))
+        {
+            flag=0;
+            break;
+            
+        }
+        else if(st.top()<abs(x))
         {
             st.pop();
         }
+        else
+        {
+            st.pop();
+            flag=0;
+            break;
+        }
       }
+      if(flag)
+        st.push(x);
       
     }
     vector<int> ans;
