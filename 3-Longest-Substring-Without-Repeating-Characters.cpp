@@ -4,15 +4,21 @@ public:
     {
         int ans=0;
         int n=s.size();
-        for(int i=0;i<n;++i)
+        map<char,int>mp;
+        int l=0,r=0;
+        while(r<n)
         {
-            map<char,int>hash;
-            for(int j=i;j<n;++j)
+            if(mp[s[r]]!=0)
             {
-                if(hash[s[j]]==1)break;
-                ans=max(ans,j-i+1);
-                hash[s[j]]=1;
+                
+                if(mp[s[r]]>=l)
+                {
+                    l=mp[s[r]];;
+                }
             }
+            ans=max(ans,r-l+1);
+            mp[s[r]]=r+1;
+            r++;
         }
         return ans;
     }
